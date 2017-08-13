@@ -7,11 +7,11 @@ from tkinter import *
 import os
 
 def job():
-        tot_sec=e2.get()
-        os.system("sudo rtcwake -m mem -s "+str(tot_sec))
+        tot_sec=int(e2.get())
+        os.system("sudo rtcwake -m mem -s "+str(tot_sec*60))
 
 def run_scheduler():
-        schedule.every(int(e1.get())).seconds.do(job)
+        schedule.every(int(e1.get())).minutes.do(job)
         global cond
         while cond:
                 schedule.run_pending()
@@ -34,8 +34,8 @@ def exit_program():
 cond = True
 scheduler_thread = None
 master = Tk()
-Label(master, text="Work Time in Seconds").grid(row=0)
-Label(master, text="Break Time in Seconds").grid(row=1)
+Label(master, text="Work Time in Minutes").grid(row=0)
+Label(master, text="Break Time in Minutes").grid(row=1)
 
 e1 = Entry(master)
 e2 = Entry(master)
